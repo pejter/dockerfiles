@@ -4,7 +4,7 @@ MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
 
 RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 	ffmpeg \
 	# libssl-dev \
 	# libx264-dev \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 	# openssl \
 	# pkg-config \
 	# zlib1g-dev \
-&& rm -rf /var/lib/apt/lists/*
+&& apt-get clean
 
 RUN pip install \
 	beautifulsoup4 \
