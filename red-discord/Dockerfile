@@ -28,4 +28,4 @@ RUN git clone -b develop --single-branch https://github.com/Twentysix26/Red-Disc
 VOLUME /app/data
 WORKDIR /app
 
-CMD ["python", "./red.py"]
+CMD ["python", "./red.py", "--no-prompt"]
