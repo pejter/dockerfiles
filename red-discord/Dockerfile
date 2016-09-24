@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 && apt-get clean
 
 RUN pip install \
-	git+https://github.com/Rapptz/discord.py@async \
+	git+https://github.com/Rapptz/discord.py@master#egg=discord.py[voice] \
 	imgurpython \
 	youtube_dl
 
