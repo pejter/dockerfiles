@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:slim
 
 MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
 
