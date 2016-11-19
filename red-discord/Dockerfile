@@ -3,11 +3,13 @@ FROM python:slim
 MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	gcc \
 	git \
 	libav-tools \
 	libffi-dev \
 	libopus-dev \
 	libssl-dev \
+	make \
 	unzip \
 && apt-get clean
 
