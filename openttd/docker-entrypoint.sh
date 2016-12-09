@@ -2,16 +2,21 @@
 set -e
 
 if [[ "$1" == '/usr/games/openttd' ]]; then
-uid=${PUID:-999}
-gid=${PGID:-999}
+if [ ! "$(id -u openttd)" -eq "$PUID" ]; then usermod -o -u "$PUID" openttd ; fi
+if [ ! "$(id -g openttd)" -eq "$PGID" ]; then groupmod -o -g "$PGID" openttd ; fi
+
 savepath="/home/openttd/.openttd/save"
 savegame="${savepath}/${savename}"
 LOADGAME_CHECK="${loadgame}"
+echo "--------------------"
+echo "Running as UID: $uid"
+echo "Running as GID: $gid"
+echo "--------------------"
 
 # Loads the desired game, or prepare to load it next time server starts up!
 if [[ ${LOADGAME_CHECK} == "" ]]; then
 	echo "\$loadgame (\"${loadgame}\") not set, starting new game"
-	exec gosu $uid:$gid /usr/games/openttd -D
+	exec gosu openttd /usr/games/openttd -D -x
 	exit 0
 fi
 
@@ -19,7 +24,7 @@ case ${loadgame} in
 	'true')
 		if [ -f  ${savegame} ]; then
 			echo "Loading savegame ${savegame}"
-			exec gosu $uid:$gid /usr/games/openttd -D -g ${savegame} -d ${DEBUG}
+			exec gosu openttd /usr/games/openttd -D -x -g ${savegame} -d ${DEBUG}
 			exit 0
 		else
 			echo "${savegame} not found..."
@@ -28,7 +33,7 @@ case ${loadgame} in
 	;;
 	'false')
 		echo "Creating a new game."
-		exec gosu $uid:$gid /usr/games/openttd -D -d ${DEBUG}
+		exec gosu openttd /usr/games/openttd -D -x -d ${DEBUG}
 		exit 0
 	;;
 	'last-autosave')
@@ -37,7 +42,7 @@ case ${loadgame} in
 
 		if [ -r ${savegame} ]; then
 			echo "Loading ${savegame}"
-			exec gosu $uid:$gid /usr/games/openttd -D -g ${savegame} -d ${DEBUG}
+			exec gosu openttd /usr/games/openttd -D -x -g ${savegame} -d ${DEBUG}
 			exit 0
 		else
 			echo "${savegame} not found..."
@@ -50,7 +55,7 @@ case ${loadgame} in
 
 		if [ -r ${savegame} ]; then
 			echo "Loading ${savegame}"
-			exec gosu $uid:$gid /usr/games/openttd -D -g ${savegame} -d ${DEBUG}
+			exec gosu openttd /usr/games/openttd -D -x -g ${savegame} -d ${DEBUG}
 			exit 0
 		else
 			echo "${savegame} not found..."
