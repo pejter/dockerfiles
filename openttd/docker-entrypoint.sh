@@ -9,8 +9,8 @@ savepath="/home/openttd/.openttd/save"
 savegame="${savepath}/${savename}"
 LOADGAME_CHECK="${loadgame}"
 echo "--------------------"
-echo "Running as UID: $uid"
-echo "Running as GID: $gid"
+echo "Running as UID: $PUID"
+echo "Running as GID: $PGID"
 echo "--------------------"
 
 # Loads the desired game, or prepare to load it next time server starts up!
