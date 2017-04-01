@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	unzip \
 && apt-get clean
 
-RUN pip install \
+RUN pip install --no-cache-dir \
 	git+https://github.com/Rapptz/discord.py@master#egg=discord.py[voice] \
 	imgurpython \
 	youtube_dl
