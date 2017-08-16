@@ -17,7 +17,7 @@ RUN git clone -b develop --single-branch https://github.com/Cog-Creators/Red-Dis
 
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-VOLUME /app/data
+VOLUME ["/app/data", "/app/cogs"]
 WORKDIR /app
 
 CMD ["python", "./red.py", "--no-prompt"]
