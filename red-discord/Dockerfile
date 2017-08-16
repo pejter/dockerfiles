@@ -13,12 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	unzip \
 && apt-get clean
 
-RUN pip install --no-cache-dir \
-	git+https://github.com/Rapptz/discord.py@master#egg=discord.py[voice] \
-	imgurpython \
-	youtube_dl
+RUN git clone -b develop --single-branch https://github.com/Cog-Creators/Red-DiscordBot.git /app
 
-RUN git clone -b develop --single-branch https://github.com/Twentysix26/Red-DiscordBot.git /app
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 VOLUME /app/data
 WORKDIR /app
