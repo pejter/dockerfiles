@@ -1,15 +1,13 @@
-FROM python:latest
+FROM python:alpine
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-	gcc \
-	git \
-	libav-tools \
-	libffi-dev \
-	libopus-dev \
-	libssl-dev \
-	make \
-	unzip \
-&& rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache --virtual .red-deps \
+		ffmpeg \
+		g++ \
+		git \
+		libffi-dev \
+		libsodium-dev \
+		make \
+		openssl
 
 RUN git clone -b develop --single-branch https://github.com/Cog-Creators/Red-DiscordBot.git /app
 
