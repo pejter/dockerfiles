@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libav-tools \
 	libfreetype6-dev \
 	libjpeg62-turbo-dev \
-	libpng12-dev \
+	libpng-dev \
 	unzip \
 	&& apt-get clean
 
