@@ -2,9 +2,12 @@ Image for [Red-DiscordBot](https://github.com/Cog-Creators/Red-DiscordBot)
 I'm not the author of the Bot and made this image for personal use. However feel free to use it.
 
 # Quick start:
-`docker run -it -v <your_path>/data:/app/data pejter/red-discordbot`
+> If you're not running the container in the interactive mode make sure to have an existing config in the data directory as there is nobody to fill out the initial setup questions
+
+`docker run -it --name red pejter/red-discordbot`
+
 ## Cogs and data are automatically preserved using docker-managed volumes
-> If you'd like to host-mount those volumes you can do so, but make sure to initialize the directories first using their respective folders from the [source repository](https://github.com/Cog-Creators/Red-DiscordBot). Then you can run the container with
+> If you'd like to host-mount those volumes you can do so, but make sure to initialize the directories first using their respective folders from the [source repository](https://github.com/Cog-Creators/Red-DiscordBot). Then you can run the container with:
 
 `docker run -it -v <your_path>/data:/app/data -v <your_path>/cogs:/app/cogs pejter/red-discordbot`
 
