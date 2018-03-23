@@ -18,4 +18,6 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 VOLUME ["/app/data", "/app/cogs"]
 WORKDIR /app
 
-CMD ["python", "./red.py", "--no-prompt"]
+COPY run.py /scripts/
+
+CMD ["python", "/scripts/run.py"]
