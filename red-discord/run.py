@@ -29,7 +29,7 @@ def main():
 		repos = {}
 	for repo in repos.values():
 		for cog in repo.values():
-			if cog['INSTALLED']:
+			if isinstance(cog, dict) and cog['INSTALLED']:
 				info_file = os.path.join(cog['folder'], 'info.json')
 				try:
 					with open(info_file) as f:
