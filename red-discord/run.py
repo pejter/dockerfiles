@@ -30,8 +30,7 @@ def main():
 	for repo in repos.values():
 		for cog in repo.values():
 			if cog['INSTALLED']:
-				info_path = os.path.join(cog['folder'], 'info.json')
-				# if os.path.isfile(info_path):
+				info_file = os.path.join(cog['folder'], 'info.json')
 				try:
 					with open(info_file) as f:
 						cog_info = json.load(f)
