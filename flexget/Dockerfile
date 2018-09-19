@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.6
 
 MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
 
