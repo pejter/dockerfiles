@@ -3,11 +3,9 @@ FROM golang:latest AS build
 ENV CGO_ENABLED=0
 ENV GOOS=linux
 
-RUN go get github.com/magefile/mage
-RUN go get -d github.com/gohugoio/hugo
-RUN cd ${GOPATH:-/go}/src/github.com/gohugoio/hugo \
-	&& mage vendor \
-	&& mage install
+WORKDIR /src
+RUN git clone https://github.com/gohugoio/hugo.git hugo
+RUN cd /src/hugo && go install
 
 FROM alpine:latest
 WORKDIR /site
