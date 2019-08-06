@@ -1,4 +1,5 @@
-FROM python:3.6
+ARG variant=latest
+FROM python:$variant
 
 MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
 
