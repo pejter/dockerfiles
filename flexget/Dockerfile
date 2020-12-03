@@ -1,7 +1,7 @@
 ARG variant=latest
 FROM python:$variant
 
-MAINTAINER Piotr Łuczak <piotrluczak1995@gmail.com>
+LABEL maintainer="Piotr Łuczak <piotrluczak1995@gmail.com>"
 
 RUN pip install --no-cache-dir \
 	flexget \
