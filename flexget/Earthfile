@@ -1,0 +1,62 @@
+FROM scratch
+
+BUILD_ALL:
+	COMMAND
+	ARG target
+	BUILD \
+		--platform linux/amd64 \
+		--platform linux/i386 \
+		--platform linux/arm64/v8 \
+		--platform linux/arm/v7 \
+		--platform linux/arm/v6 \
+		--platform linux/ppc64le \
+		--platform linux/s390x \
+	$target
+
+INSTALL:
+	COMMAND
+	ARG variant
+	FROM python:$variant
+
+	LABEL maintainer="Piotr Łuczak <piotrluczak1995@gmail.com>"
+
+	ARG deps
+	COPY $deps/wheels /wheels
+	RUN pip install /wheels/*
+
+	WORKDIR /flexget
+	VOLUME /flexget
+
+	CMD rm -f /flexget/.config-lock && flexget daemon start
+	SAVE IMAGE --push pejter/flexget:$variant
+
+glibc-deps:
+	FROM python:latest
+
+	RUN pip wheel -w /wheels \
+		flexget \
+		transmission-rpc
+
+	SAVE ARTIFACT /wheels
+
+alpine-deps:
+	FROM python:alpine
+
+	RUN apk --no-cache add build-base linux-headers
+	RUN pip wheel -w /wheels \
+		flexget \
+		transmission-rpc
+
+	SAVE ARTIFACT /wheels
+
+build-latest:
+	DO +INSTALL --variant=latest --deps=+glibc-deps
+build-slim:
+	DO +INSTALL --variant=slim --deps=+glibc-deps
+build-alpine:
+	DO +INSTALL --variant=alpine --deps=+alpine-deps
+
+build:
+	DO +BUILD_ALL --target=+build-latest
+	DO +BUILD_ALL --target=+build-slim
+	DO +BUILD_ALL --target=+build-alpine
